@@ -2,6 +2,7 @@ module Adapters
   class << self
 
     def process(event, options = Hashie::Mash.new)
+      puts "adapters processing #{event}"
       listeners[event.to_sym].each do |adapter|
         adapter.new(options).send("process_#{event}")
       end
