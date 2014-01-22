@@ -7,7 +7,6 @@ end
 
 Bundler.require(:default)
 
-require 'dotenv'
 Dotenv.load
 
 require 'hookers'
@@ -20,6 +19,7 @@ class Crystal < Sinatra::Base
     "At #{Time.now} it works!"
   end
 end
+
 
 #   get '/pr' do
 #     payload = Hashie::Mash.new(JSON.parse(params["payload"]))

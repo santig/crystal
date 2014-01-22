@@ -4,7 +4,7 @@ module Adapters
   describe Pivotal do
 
     def new_payload(opts = {})
-      Pivotal.new Hashie::Mash.new(payload: { pull_request: opts })
+      Pivotal.new Hashie::Mash.new(pull_request: opts)
     end
 
     describe "#story_id" do
