@@ -11,3 +11,7 @@ gem "json", "~> 1.8.1"
 group :development do
   gem "rspec"
 end
+
+group :production do
+  gem "thin", "~> 1.6.1"
+end
