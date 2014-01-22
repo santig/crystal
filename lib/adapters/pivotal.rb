@@ -15,8 +15,7 @@ module Adapters
     end
 
     def process_pull_request
-      puts "Pivotal processing pull request"
-      puts payload.inspect
+      puts "[Pivotal] processing pull request: #{text}"
     end
 
     private
