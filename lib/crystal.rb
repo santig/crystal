@@ -12,6 +12,10 @@ require 'adapters'
 
 class Crystal < Sinatra::Base
   use Hookers::Github
+
+  get '/' do
+    "At #{Time.now} it works!"
+  end
 end
 
 #   get '/pr' do
