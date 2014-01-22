@@ -40,15 +40,15 @@ module Adapters
     # ****************** PR METHODS ***************************
     # *********************************************************
     def opened?
-
+      pr.action.match /open/
     end
 
     def closed?
-
+      !merged? && pr.closed_at != nil
     end
 
     def merged?
-
+      pr.merged_at != nil
     end
 
     def pr
@@ -64,7 +64,6 @@ module Adapters
     def extract_information!
       @story_id = extract_ids(text.match(MATCHER)).first
     end
-
 
     def extract_ids(match_data)
       return [ ] unless match_data
