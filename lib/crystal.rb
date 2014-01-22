@@ -7,6 +7,9 @@ end
 
 Bundler.require(:default)
 
+require 'dotenv'
+Dotenv.load
+
 require 'hookers'
 require 'adapters'
 
