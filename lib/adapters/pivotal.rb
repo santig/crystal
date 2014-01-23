@@ -57,7 +57,7 @@ module Adapters
 
     # we may need to define this for each event type
     def text
-      pr.title + pr.body
+      pr.title + " " + pr.body
     end
     # ****************** END PR METHODS ***************************
 
