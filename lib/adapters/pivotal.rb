@@ -40,7 +40,7 @@ module Adapters
     # ****************** PR METHODS ***************************
     # *********************************************************
     def opened?
-      pr.action.match /open/
+      payload.action.match /open/
     end
 
     def closed?
