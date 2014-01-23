@@ -6,68 +6,43 @@ module Adapters
   # TODO: create a base class once we add more adapters.
   class Pivotal < Base
     subscribe! :pull_request
+    subscribe! :deploy
 
     ID_MATCHER = /PT\s*(\d+)/
     URL_MATCHER = /pivotaltracker.*\/(\d+)/
     MATCHER = /#{ID_MATCHER}|#{URL_MATCHER}/
 
-    attr_reader :payload, :story_id
+    attr_reader :payload, :story_ids
 
     def initialize(payload)
       @payload = payload
-      extract_information!
     end
 
     def process_pull_request
-      extract_information!
+      pr = PullRequest.new(payload)
+      extract_information!(pr.text)
 
-      puts "[Pivotal] processing pull request: #{text}"
-
-      # TODO: create pull_request model if we handle more github events
-      if opened?
-        Label.create(story_id: story_id, name: "pr-requested")
-      elsif closed?
-        Label.destroy(story_id: story_id, name: "pr-requested")
-      elsif merged?
-        Label.create(story_id: story_id, name: "merged")
+      story_ids.each do |story_id|
+        if pr.opened?
+          Label.create(story_id: story_id, name: "pr-requested")
+        elsif pr.closed?
+          Label.destroy(story_id: story_id, name: "pr-requested")
+        elsif pr.merged?
+          Label.create(story_id: story_id, name: "merged")
+        end
       end
-
-      puts "[Pivotal] processed pull request: #{text}"
     end
 
-    private
+    def process_deploy
+      extract_information!(payload.text)
 
-    # ****************** PR METHODS ***************************
-    # *********************************************************
-    def opened?
-      payload.action.match /open/
+      story_ids.each do |story_id|
+        Label.create(story_id: story_id, name: "deployed")
+      end
     end
 
-    def closed?
-      !merged? && pr.closed_at != nil
-    end
-
-    def merged?
-      pr.merged_at != nil
-    end
-
-    def pr
-      @pr ||= payload.pull_request
-    end
-
-    # we may need to define this for each event type
-    def text
-      pr.title + " " + pr.body
-    end
-    # ****************** END PR METHODS ***************************
-
-    def extract_information!
-      @story_id = extract_ids(text.match(MATCHER)).first
-    end
-
-    def extract_ids(match_data)
-      return [ ] unless match_data
-      match_data.captures.select { |s| s =~ /\d+/ }.map { |s| s.to_i }
+    def extract_information!(text)
+      @story_ids ||= text.scan(MATCHER).flatten.compact.map(&:to_i)
     end
   end
 end
