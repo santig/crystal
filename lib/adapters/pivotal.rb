@@ -27,7 +27,7 @@ module Adapters
       if opened?
         Label.create(story_id: story_id, name: "pr-requested")
       elsif closed?
-        Label.delete(story_id: story_id, name: "pr-requested")
+        Label.destroy(story_id: story_id, name: "pr-requested")
       elsif merged?
         Label.create(story_id: story_id, name: "merged")
       end
