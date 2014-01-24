@@ -35,7 +35,7 @@ module Adapters
 
     def process_deploy
       extract_information!(payload.text)
-
+      
       story_ids.each do |story_id|
         Label.create(story_id: story_id, name: "deployed")
       end

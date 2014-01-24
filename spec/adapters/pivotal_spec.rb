@@ -54,5 +54,21 @@ module Adapters
         end
       end
     end
+
+    describe "process_deploy" do
+      it "adds the 'deployed' label to the story" do
+        pivotal = Pivotal.new mashie({ text: "PT 12345. Hello World!" })
+        Pivotal::Label.should_receive(:create).with(story_id: 12345, name: "deployed")
+        pivotal.process_deploy
+      end
+
+      it "supports multliple stories" do
+        pivotal = Pivotal.new mashie({ text: "PT 12345. Hello World! PT 67890" })
+        Pivotal::Label.should_receive(:create).with(story_id: 12345, name: "deployed")
+        Pivotal::Label.should_receive(:create).with(story_id: 67890, name: "deployed")
+        pivotal.process_deploy
+      end
+
+    end
   end
 end

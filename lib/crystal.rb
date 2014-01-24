@@ -15,6 +15,7 @@ require 'adapters'
 
 class Crystal < Sinatra::Base
   use Hookers::Github
+  use Hookers::Deploy
 
   get '/' do
     "At #{Time.now} it works!"
