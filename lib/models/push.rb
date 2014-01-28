@@ -20,7 +20,8 @@ class Push
   end
   
   def branch_url
-    options.compare.replace("/compare/","/tree/")
+    puts options.compare
+    options.compare.sub(/\/compare\//,"/tree/")
   end
   
   def changes_url

@@ -1,6 +1,7 @@
 require 'adapters/pivotal/client'
 require 'adapters/pivotal/story'
 require 'adapters/pivotal/label'
+require 'adapters/pivotal/comment'
 
 module Adapters
   # TODO: create a base class once we add more adapters.
@@ -11,7 +12,7 @@ module Adapters
 
     ID_MATCHER = /PT\s*(\d+)/
     URL_MATCHER = /pivotaltracker.*\/(\d+)/
-    DOT_MATCHER = /\.(\d+)(\s|$)/
+    DOT_MATCHER = /\.(\d+)(?:\s|$)/
     MATCHER = /#{ID_MATCHER}|#{URL_MATCHER}|#{DOT_MATCHER}/
 
     attr_reader :payload, :story_ids
@@ -47,22 +48,20 @@ module Adapters
       push = Push.new(payload)
       extract_information!(push.branch_names)
       story_ids.each do |story_id|
-        if story_id
-          story = Story.find(story_id)
-          if push.new_branch? && push.feature_branch?
-            story.comment("Started via branch: #{push.branch_url}")
-            story.start()
-          elsif push.feature_merge?
-            story.comment("Completed. Changes: #{push.changes_url}")
-            story.finish()
-          end
+        story = Story.find(story_id)
+        if push.new_branch? && push.feature_branch?
+          Comment.create(story_id: story_id, text: "Started via branch: #{push.branch_url}")
+          story.start()
+        elsif push.feature_merge?
+          Comment.create(story_id: story_id, text: "Completed. Changes: #{push.changes_url}")
+          story.finish()
         end
       end
     end
       
 
     def extract_information!(text)
-      @story_ids ||= text.scan(MATCHER).flatten.compact.map(&:to_i).select { |num|  num > 0  }
+      @story_ids ||= text.scan(MATCHER).flatten.compact.map(&:to_i)
     end
   end
 end
