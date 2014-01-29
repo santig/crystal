@@ -51,14 +51,14 @@ module Adapters
         story = Story.find(story_id)
         if push.new_branch? && push.feature_branch?
           Comment.create(story_id: story_id, text: "Started via branch: #{push.branch_url}")
-          story.start()
+          story.start
         elsif push.feature_merge?
           Comment.create(story_id: story_id, text: "Completed. Changes: #{push.changes_url}")
-          story.finish()
+          story.finish
         end
       end
     end
-      
+
 
     def extract_information!(text)
       @story_ids ||= text.scan(MATCHER).flatten.compact.map(&:to_i)

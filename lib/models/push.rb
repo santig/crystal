@@ -1,18 +1,23 @@
 class Push
+  BRANCH_MATCHER = /\/(.*)$/
+
   attr_reader :action, :options
 
   def initialize(options)
     @action = options.action
     @options = options
-    @pusher = options.pusher.username
+    @pusher = options.pusher ? options.pusher.name : "anonymous"
+    if @pusher == "anonymous"
+      puts "unexpected push options #{options.inspect}"
+    end
   end
 
   def branch_name
-    options.ref.match(/\/(.*)$/)[1]
+    options.ref.to_s.match(BRANCH_MATCHER)[1]
   end
   
   def base_ref_name
-    options.base_ref.match(/\/(.*)$/)[1]
+    options.base_ref ? options.base_ref.match(BRANCH_MATCHER)[1] : ""
   end
   
   def branch_names
