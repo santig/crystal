@@ -6,9 +6,7 @@ require 'adapters/pivotal/comment'
 module Adapters
   # TODO: create a base class once we add more adapters.
   class Pivotal < Base
-    subscribe! :pull_request
-    subscribe! :deploy
-    subscribe! :push
+    subscribe! :pull_request, :deploy, :push
 
     ID_MATCHER = /PT\s*(\d+)/
     URL_MATCHER = /pivotaltracker.*\/(\d+)/
@@ -38,12 +36,12 @@ module Adapters
 
     def process_deploy
       extract_information!(payload.text)
-      
+
       story_ids.each do |story_id|
         Label.create(story_id: story_id, name: "deployed")
       end
     end
-    
+
     def process_push
       push = Push.new(payload)
       extract_information!(push.branch_names)
@@ -58,7 +56,6 @@ module Adapters
         end
       end
     end
-
 
     def extract_information!(text)
       @story_ids ||= text.scan(MATCHER).flatten.compact.map(&:to_i)

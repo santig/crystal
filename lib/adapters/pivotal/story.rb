@@ -13,19 +13,19 @@ module Adapters
         story = Client.new.get("stories/#{story_id}")
         new(project_id: story.project_id, labels: story.labels, story_id: story.id)
       end
-      
+
       def comment(text)
         Client.new.post("projects/#{project_id}/#{story_path}/comments", text: text)
       end
-      
+
       def start
         Client.new.put("#{story_path}", current_state: "started")
       end
-      
+
       def finish
         Client.new.put("#{story_path}", current_state: "finished")
       end
-      
+
       def story_path
         "stories/#{story_id}"
       end
