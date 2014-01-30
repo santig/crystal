@@ -20,11 +20,11 @@ module Adapters
       def delete(path)
         parse_response self.class.delete("/#{path}", authenticated)
       end
-      
+
       def put(path, body = {})
         parse_response self.class.put("/#{path}",authenticated(body: body))
       end
-      
+
       private
 
       def authenticated(opts = {})

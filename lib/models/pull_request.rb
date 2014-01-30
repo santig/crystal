@@ -7,7 +7,7 @@ class PullRequest
   end
 
   def text
-    @attributes.title + " " + @attributes.body
+    @attributes.title
   end
 
   def opened?
