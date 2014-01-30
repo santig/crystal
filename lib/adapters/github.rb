@@ -1,3 +1,6 @@
+require 'adapters/github/client'
+require 'adapters/github/pull_request'
+
 module Adapters
   class Github < Base
     subscribe! :story
@@ -9,8 +12,11 @@ module Adapters
     end
 
     def process_story
+      story = payload.primary_resources.find { |resource| resource.kind == "story" }
+      return unless story
+
       if payload.highlight == "accepted"
-        PullRequest.where(story_id).each{ |pr| pr.ready! }
+        Adapters::Github::PullRequest.where(story.id).each{ |pr| pr.ready!(payload.message) }
       end
     end
   end

@@ -24,3 +24,4 @@ end
 
 require 'adapters/base'
 require 'adapters/pivotal'
+require 'adapters/github'
