@@ -14,7 +14,7 @@ Assuming a product feature is associated to a Pivotal Tracker story and Pull Req
 * When a person accepts a PT story, a green-light to merge comment is posted to the pull request.
 * After each deploy, all the deployed stories are labeled as "deployed".
 
-### Hook Hanlders (hookers)
+### Hook Handlers (hookers)
 
 ### Adapters (clients)
 
