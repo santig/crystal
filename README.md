@@ -11,7 +11,7 @@ between the different services we use.
 Assuming a product feature is associated to a Pivotal Tracker story and Pull Request.
 
 * Once a pull request gets merged/deployed, the PT story gets labeled as "merged" or "deployed".
-* When a person accepts a PT story, a green-light to merge comment is created in the PT story.
+* When a person accepts a PT story, a green-light to merge comment is posted to the pull request.
 * After each deploy, all the deployed stories are labeled as "deployed".
 
 ### Hook Hanlders (hookers)
