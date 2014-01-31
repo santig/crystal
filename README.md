@@ -3,7 +3,7 @@ Crystal
 
 ### Background
 
-At [weheartit.com](http://weheartit.com) we try to automatize as many repetitive task as possible. That's how we started to build Crystal, it acts as a control tower
+At [weheartit.com](http://weheartit.com) we try to automatize as many repetitive tasks as possible. That's how we started to build Crystal, it acts as a control tower
 between the different services we use.
 
 #### Real case scenarios:
