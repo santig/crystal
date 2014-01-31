@@ -1,4 +1,23 @@
 Crystal
 =======================================
 
-### HaaS
+### Background
+
+At [weheartit.com](http://weheartit.com) we try to automatize as many repetitive task as possible. That's how we started to build Crystal, it acts as a control tower
+between the different services we use.
+
+#### Real case scenarios:
+
+Assuming a product feature is associated to a Pivotal Tracker story and Pull Request.
+
+* Once a pull request gets merged/deployed, the PT story gets labeled as "merged" or "deployed".
+* When a person accepts a PT story, a green-light to merge comment is created in the PT story.
+* After each deploy, all the deployed stories are labeled as "deployed".
+
+### Hook Hanlders (hookers)
+
+### Adapters (clients)
+
+### TODO
+
+### Contributors
