@@ -8,7 +8,7 @@ module Adapters
       end
 
       def self.where(query)
-        Client.instance.search_issues("#{query}+in:title+type:pull_request").items.map do |item|
+        Client.instance.search_issues("#{query}+in:title+type:pull_request+state:open").items.map do |item|
           new(item)
         end
       end
