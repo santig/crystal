@@ -18,7 +18,9 @@ module Adapters
       end
 
       def ready!(message="This Pull Request is accepted")
-        Client.instance.add_comment(repo_name, attributes.number, "#{message} and it's ready to merge!")
+        if attributes.state == "open"
+          Client.instance.add_comment(repo_name, attributes.number, "#{message} and it's ready to merge!")
+        end
       end
     end
   end
