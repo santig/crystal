@@ -9,6 +9,7 @@ Bundler.require(:default)
 
 Dotenv.load
 
+require 'config'
 require 'models'
 require 'hookers'
 require 'adapters'
@@ -22,4 +23,3 @@ class Crystal < Sinatra::Base
     "At #{Time.now} it works!"
   end
 end
-

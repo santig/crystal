@@ -13,10 +13,15 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     json (1.8.1)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.25.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     octokit (2.7.1)
       sawyer (~> 0.5.2)
+    polyglot (0.3.4)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -41,6 +46,9 @@ GEM
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     tilt (1.4.1)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
 
 PLATFORMS
   ruby
@@ -50,6 +58,7 @@ DEPENDENCIES
   hashie (~> 2.0.5)
   httparty (~> 0.12.0)
   json (~> 1.8.1)
+  mail (~> 2.5.4)
   octokit (~> 2.7.1)
   rack (~> 1.5.2)
   rake (~> 10.1.1)
