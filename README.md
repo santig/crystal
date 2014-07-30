@@ -21,3 +21,4 @@ Assuming a product feature is associated to a Pivotal Tracker story and Pull Req
 ### TODO
 
 ### Contributors
+* Las salsas sixas
